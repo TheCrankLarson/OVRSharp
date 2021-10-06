@@ -1,5 +1,6 @@
 ﻿using OVRSharp.Exceptions;
 using System;
+using System.Drawing;
 using System.Threading;
 using Valve.VR;
 
@@ -352,6 +353,21 @@ namespace OVRSharp
         public void SetTextureFromFile(string path)
         {
             AssertNoError(OpenVR.Overlay.SetOverlayFromFile(_overlayHandle, path));
+        }
+
+        /// <summary>
+        /// Applies the supplied bitmap as the overlay texture.
+        /// Textures can be up to 1920x1080 in size.
+        /// PNG, JPG, and TGA files are supported in 24 or 32 bits.
+        /// </summary>
+        /// 
+        /// <param name="bitmap">
+        /// Bitmap to be applied
+        /// </param>
+        public void SetTextureRaw(Bitmap bitmap, IntPtr overlayImage)
+        {
+            AssertNoError(OpenVR.Overlay.SetOverlayRaw(_overlayHandle, overlayImage, (uint)bitmap.Width, (uint)bitmap.Height, 4));
+            //OpenVR.Overlay.SetOverlayRaw(OverlayHandle, _intPtrVROverlayImage, (uint)_vrbitmap.Width, (uint)_vrbitmap.Height, 4);
         }
 
         /// <summary>
